@@ -114,8 +114,8 @@ typedef struct {
 	motor_state_t m_motor_state;
 	float m_curr_unbalance;
 	float m_currents_adc[3];
-	bool m_phase_override;
-	float m_phase_now_override;
+	bool m_phase_override;   //mpcpwm_foc_hall(or encoder)_detect()、mpcpwm_foc_measure_resistance()中设置标志
+	float m_phase_now_override;  //覆盖后的当前相位，motor_now->m_motor_state.phase = motor_now->m_phase_now_override;
 	float m_duty_cycle_set;
 	float m_id_set;
 	float m_iq_set;
@@ -127,11 +127,11 @@ typedef struct {
 	float m_pos_pid_set;
 	float m_speed_pid_set_rpm;
 	float m_speed_command_rpm;
-	float m_phase_now_observer;
-	float m_phase_now_observer_override;
+	float m_phase_now_observer;    //当前观测的相位角
+	float m_phase_now_observer_override; //当前观测的相位角覆盖，在无感中使用motor_now->m_motor_state.phase = motor_now->m_phase_now_observer_override;
 	float m_observer_x1_override;
 	float m_observer_x2_override;
-	bool m_phase_observer_override;
+	bool m_phase_observer_override; //当前观测的相位角覆盖标志
 	float m_phase_now_encoder;
 	float m_phase_now_encoder_no_index;
 	float m_observer_x1;
@@ -356,11 +356,12 @@ static void timer_reinit(int f_zv) {
 	TIM_TimeBaseInit(TIM8, &TIM_TimeBaseStructure);
 
 	// Channel 1, 2 and 3 Configuration in PWM mode
+  // pwm1模式 在递增计数模式下，只要 TIMx_CNT<TIMx_CCR1，通道 1 便为有效状态OC1REF=1，否则为无效状态。
 	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
 	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
 	TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Enable;
 	TIM_OCInitStructure.TIM_Pulse = TIM1->ARR / 2;
-	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
+	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;      //极性不变，OC1REF=1 输出为1
 	TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_High;
 	TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Set;
 	TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCNIdleState_Set;
@@ -437,10 +438,10 @@ static void timer_reinit(int f_zv) {
 	TIM_OC3PreloadConfig(TIM2, TIM_OCPreload_Enable);
 
 	TIM_ARRPreloadConfig(TIM2, ENABLE);
-	TIM_CCPreloadControl(TIM2, ENABLE);
+  //TIM_CCPreloadControl(TIM2, ENABLE); //TIM2无ccpc位
 
 	// PWM outputs have to be enabled in order to trigger ADC on CCx
-	TIM_CtrlPWMOutputs(TIM2, ENABLE);
+	//TIM_CtrlPWMOutputs(TIM2, ENABLE);  //TIM2无BDTR寄存器
 
 	// TIM1 Master and TIM8 slave
 #if defined HW_HAS_DUAL_MOTORS || defined HW_HAS_DUAL_PARALLEL
@@ -536,6 +537,7 @@ void mcpwm_foc_init(volatile mc_configuration *conf_m1, volatile mc_configuratio
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2 | RCC_AHB1Periph_GPIOA | RCC_AHB1Periph_GPIOC, ENABLE);
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1 | RCC_APB2Periph_ADC2 | RCC_APB2Periph_ADC3, ENABLE);
 
+  //ADC采集15个通道，使用DMA传送完成后产生DMA中断
 	dmaStreamAllocate(STM32_DMA_STREAM(STM32_DMA_STREAM_ID(2, 4)),
 					  5,
 					  (stm32_dmaisr_t)mcpwm_foc_adc_int_handler,
@@ -2424,7 +2426,7 @@ void mcpwm_foc_adc_int_handler(void *p, uint32_t flags) {
 
 	uint32_t t_start = timer_time_now();
 
-	bool is_v7 = !(TIM1->CR1 & TIM_CR1_DIR);
+	bool is_v7 = !(TIM1->CR1 & TIM_CR1_DIR);//0 ,CR1->DIR=0 增计数
 	int norm_curr_ofs = 0;
 
 #ifdef HW_HAS_DUAL_MOTORS
@@ -2644,8 +2646,8 @@ void mcpwm_foc_adc_int_handler(void *p, uint32_t flags) {
 		if (conf_now->foc_encoder_inverted) {
 			phase_tmp = 360.0 - phase_tmp;
 		}
-		phase_tmp *= conf_now->foc_encoder_ratio;
-		phase_tmp -= conf_now->foc_encoder_offset;
+		phase_tmp *= conf_now->foc_encoder_ratio;  //Ratio between encoder and motor，number of pole-pairs
+		phase_tmp -= conf_now->foc_encoder_offset; //Offset between the encoder zero and motor zero points.
 		utils_norm_angle((float*)&phase_tmp);
 		motor_now->m_phase_now_encoder = DEG2RAD_f(phase_tmp);
 	}
@@ -2662,10 +2664,10 @@ void mcpwm_foc_adc_int_handler(void *p, uint32_t flags) {
 
 		float id_set_tmp = motor_now->m_id_set;
 		float iq_set_tmp = motor_now->m_iq_set;
-		motor_now->m_motor_state.max_duty = conf_now->l_max_duty;
+		motor_now->m_motor_state.max_duty = conf_now->l_max_duty; //Maximum allowed duty cycle.
 
 		if (motor_now->m_control_mode == CONTROL_MODE_CURRENT_BRAKE) {
-			utils_truncate_number_abs(&iq_set_tmp, -conf_now->lo_current_min);
+			utils_truncate_number_abs(&iq_set_tmp, -conf_now->lo_current_min);//Maximum (braking) motor current
 		}
 
 		UTILS_LP_FAST(motor_now->m_duty_abs_filtered, duty_abs, 0.01);
@@ -2674,7 +2676,7 @@ void mcpwm_foc_adc_int_handler(void *p, uint32_t flags) {
 		UTILS_LP_FAST(motor_now->m_duty_filtered, duty_now, 0.01);
 		utils_truncate_number_abs((float*)&motor_now->m_duty_filtered, 1.0);
 
-		float duty_set = motor_now->m_duty_cycle_set;
+		float duty_set = motor_now->m_duty_cycle_set;   //set duty
 		bool control_duty = motor_now->m_control_mode == CONTROL_MODE_DUTY ||
 				motor_now->m_control_mode == CONTROL_MODE_OPENLOOP_DUTY ||
 				motor_now->m_control_mode == CONTROL_MODE_OPENLOOP_DUTY_PHASE;
@@ -2766,7 +2768,7 @@ void mcpwm_foc_adc_int_handler(void *p, uint32_t flags) {
 		}
 
 		// Set motor phase
-		{
+		{ 
 			if (!motor_now->m_phase_override) {
 				observer_update(motor_now->m_motor_state.v_alpha, motor_now->m_motor_state.v_beta,
 						motor_now->m_motor_state.i_alpha, motor_now->m_motor_state.i_beta, dt,
@@ -2778,14 +2780,15 @@ void mcpwm_foc_adc_int_handler(void *p, uint32_t flags) {
 				utils_norm_angle_rad((float*)&motor_now->m_phase_now_observer);
 			}
 
+		  //Obtain the motor phase according to the motor sensor mode
 			switch (conf_now->foc_sensor_mode) {
 			case FOC_SENSOR_MODE_ENCODER:
 				if (encoder_index_found() || virtual_motor_is_connected()) {
-					motor_now->m_motor_state.phase = correct_encoder(
+					motor_now->m_motor_state.phase = correct_encoder( //speed compare with erpm,if speed < erpm,use observer phase
 							motor_now->m_phase_now_observer,
 							motor_now->m_phase_now_encoder,
 							motor_now->m_speed_est_fast,
-							conf_now->foc_sl_erpm,
+							conf_now->foc_sl_erpm,  //ERPM above which sensorless commutation is used in sensored modes.
 							motor_now);
 				} else {
 					// Rotate the motor in open loop if the index isn't found.
@@ -2910,8 +2913,9 @@ void mcpwm_foc_adc_int_handler(void *p, uint32_t flags) {
 			utils_truncate_number(&iq_set_tmp, conf_now->lo_in_current_max / mod_q, conf_now->lo_in_current_min / mod_q);
 		}
 
+		//mcconf->lo_current_max = mcconf->l_current_max * mcconf->l_current_max_scale
 		if (mod_q > 0.0) {
-			utils_truncate_number(&iq_set_tmp, conf_now->lo_current_min, conf_now->lo_current_max);
+			utils_truncate_number(&iq_set_tmp, conf_now->lo_current_min, conf_now->lo_current_min);
 		} else {
 			utils_truncate_number(&iq_set_tmp, -conf_now->lo_current_max, -conf_now->lo_current_min);
 		}
@@ -2989,6 +2993,7 @@ void mcpwm_foc_adc_int_handler(void *p, uint32_t flags) {
 
 			}
 
+			//calculate sin/cos value from phase
 			utils_fast_sincos_better(motor_now->m_motor_state.phase,
 					(float*)&motor_now->m_motor_state.phase_sin,
 					(float*)&motor_now->m_motor_state.phase_cos);
@@ -3812,6 +3817,8 @@ static void control_current(volatile motor_all_state_t *motor, float dt) {
 	UTILS_LP_FAST(state_m->iq_filter, state_m->iq, conf_now->foc_current_filter_const);
 
 	float d_gain_scale = 1.0;
+	//conf_now->foc_d_gain_scale_start; Start decreasing the D axis current controller gain at this modulation.
+	//conf_now->foc_d_gain_scale_max_mod;D axis current controller gain at maximum modulation.
 	if (conf_now->foc_d_gain_scale_start < 0.99) {
 		float max_mod_norm = fabsf(state_m->duty_now / max_duty);
 		if (max_duty < 0.01) {
