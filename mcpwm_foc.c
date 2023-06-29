@@ -2958,6 +2958,17 @@ void mcpwm_foc_adc_int_handler(void *p, uint32_t flags) {
 		// The observer phase offset has to be added here as well, with 0.5 switching cycles offset
 		// compared to when running. Otherwise going from undriven to driven causes a current
 		// spike.
+		/*
+		Observer offset in switching cycles.
+		
+		There is some delay between when the current ant voltage measurements are taken and 
+		when the output is applied. This will cause the observer phase to lag behind the motor phase 
+		at high speed when the zero vector frequency is low in comparison.
+		
+		This parameter adds an offset to the observer phase in multiples of the zero vector frequency 
+		to compensate for that delay. The default value should be good for most hardware, 
+		but if needed this value can be fine-tuned using and encoder and/or a power analyzer.
+		*/
 		motor_now->m_phase_now_observer += motor_now->m_pll_speed * dt * conf_now->foc_observer_offset;
 		utils_norm_angle_rad((float*)&motor_now->m_phase_now_observer);
 
@@ -3840,6 +3851,11 @@ static void control_current(volatile motor_all_state_t *motor, float dt) {
 	state_m->vq = state_m->vq_int + Ierr_q * conf_now->foc_current_kp;
 
 	// Temperature compensation
+	/*
+	Use temperature compensation for the motor resistance used by the observer. 
+	Should help at low speed when the motor temperature is far away from the temperature 
+	at which the resistance was measured.
+	*/
 	const float t = mc_interface_temp_motor_filtered();
 	float ki = conf_now->foc_current_ki;
 	if (conf_now->foc_temp_comp && t > -30.0) {

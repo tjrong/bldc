@@ -31,19 +31,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="92a833fd-9836-4118-9861-15d042ca1e39" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/bldc.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conf_general.h" beforeDir="false" afterPath="$PROJECT_DIR$/conf_general.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/confgenerator.c" beforeDir="false" afterPath="$PROJECT_DIR$/confgenerator.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/confgenerator.h" beforeDir="false" afterPath="$PROJECT_DIR$/confgenerator.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ld_eeprom_emu.ld" beforeDir="false" afterPath="$PROJECT_DIR$/ld_eeprom_emu.ld" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libcanard/canard.mk" beforeDir="false" afterPath="$PROJECT_DIR$/libcanard/canard.mk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lora/lora.mk" beforeDir="false" afterPath="$PROJECT_DIR$/lora/lora.mk" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcpwm_foc.c" beforeDir="false" afterPath="$PROJECT_DIR$/mcpwm_foc.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/qmlui/app/qmlui_example_app.c" beforeDir="false" afterPath="$PROJECT_DIR$/qmlui/app/qmlui_example_app.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -1737,6 +1727,8 @@
       <workItem from="1676596443170" duration="5654000" />
       <workItem from="1676855636398" duration="3266000" />
       <workItem from="1676948769100" duration="5000" />
+      <workItem from="1687913200185" duration="2331000" />
+      <workItem from="1688019646272" duration="2055000" />
     </task>
     <servers />
   </component>
