@@ -32,10 +32,7 @@
   <component name="ChangeListManager">
     <list default="true" id="92a833fd-9836-4118-9861-15d042ca1e39" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flash_helper.c" beforeDir="false" afterPath="$PROJECT_DIR$/flash_helper.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ld_eeprom_emu.ld" beforeDir="false" afterPath="$PROJECT_DIR$/ld_eeprom_emu.ld" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mcpwm_foc.c" beforeDir="false" afterPath="$PROJECT_DIR$/mcpwm_foc.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hwconf/hw_60.h" beforeDir="false" afterPath="$PROJECT_DIR$/hwconf/hw_60.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,10 +69,10 @@
         <entry key="STM32F40x.svd|g:CAN" value="-C" />
         <entry key="STM32F40x.svd|g:DMA" value="-C" />
         <entry key="STM32F40x.svd|g:Ethernet" value="-C" />
-        <entry key="STM32F40x.svd|g:GPIO" value="-C" />
+        <entry key="STM32F40x.svd|g:GPIO" value="-E" />
         <entry key="STM32F40x.svd|g:I2C" value="-C" />
         <entry key="STM32F40x.svd|g:SPI" value="-C" />
-        <entry key="STM32F40x.svd|g:TIM" value="-E" />
+        <entry key="STM32F40x.svd|g:TIM" value="-C" />
         <entry key="STM32F40x.svd|g:USART" value="-C" />
         <entry key="STM32F40x.svd|g:USB_OTG_FS" value="-C" />
         <entry key="STM32F40x.svd|g:USB_OTG_HS" value="-C" />
@@ -581,11 +578,11 @@
         <entry key="STM32F40x.svd|p:GPIOA|OSPEEDR" value="HC" />
         <entry key="STM32F40x.svd|p:GPIOA|OTYPER" value="HC" />
         <entry key="STM32F40x.svd|p:GPIOA|PUPDR" value="HC" />
-        <entry key="STM32F40x.svd|p:GPIOB" value="-C" />
+        <entry key="STM32F40x.svd|p:GPIOB" value="-E" />
         <entry key="STM32F40x.svd|p:GPIOB|AFRH" value="HC" />
         <entry key="STM32F40x.svd|p:GPIOB|AFRL" value="HC" />
         <entry key="STM32F40x.svd|p:GPIOB|BSRR" value="HC" />
-        <entry key="STM32F40x.svd|p:GPIOB|IDR" value="HC" />
+        <entry key="STM32F40x.svd|p:GPIOB|IDR" value="HE" />
         <entry key="STM32F40x.svd|p:GPIOB|LCKR" value="HC" />
         <entry key="STM32F40x.svd|p:GPIOB|MODER" value="HC" />
         <entry key="STM32F40x.svd|p:GPIOB|ODR" value="HC" />
@@ -1165,7 +1162,7 @@
         <entry key="STM32F40x.svd|p:SYSCFG|EXTICR4" value="HC" />
         <entry key="STM32F40x.svd|p:SYSCFG|MEMRM" value="HC" />
         <entry key="STM32F40x.svd|p:SYSCFG|PMC" value="HC" />
-        <entry key="STM32F40x.svd|p:TIM1" value="-E" />
+        <entry key="STM32F40x.svd|p:TIM1" value="-C" />
         <entry key="STM32F40x.svd|p:TIM10" value="-C" />
         <entry key="STM32F40x.svd|p:TIM10|ARR" value="HC" />
         <entry key="STM32F40x.svd|p:TIM10|CCER" value="HC" />
@@ -1231,7 +1228,7 @@
         <entry key="STM32F40x.svd|p:TIM14|PSC" value="HC" />
         <entry key="STM32F40x.svd|p:TIM14|SR" value="HC" />
         <entry key="STM32F40x.svd|p:TIM1|ARR" value="HC" />
-        <entry key="STM32F40x.svd|p:TIM1|BDTR" value="HE" />
+        <entry key="STM32F40x.svd|p:TIM1|BDTR" value="HC" />
         <entry key="STM32F40x.svd|p:TIM1|CCER" value="HC" />
         <entry key="STM32F40x.svd|p:TIM1|CCMR1_Input" value="HC" />
         <entry key="STM32F40x.svd|p:TIM1|CCMR1_Output" value="HC" />
@@ -1242,7 +1239,7 @@
         <entry key="STM32F40x.svd|p:TIM1|CCR3" value="HC" />
         <entry key="STM32F40x.svd|p:TIM1|CCR4" value="HC" />
         <entry key="STM32F40x.svd|p:TIM1|CNT" value="HC" />
-        <entry key="STM32F40x.svd|p:TIM1|CR1" value="HE" />
+        <entry key="STM32F40x.svd|p:TIM1|CR1" value="HC" />
         <entry key="STM32F40x.svd|p:TIM1|CR2" value="HC" />
         <entry key="STM32F40x.svd|p:TIM1|DCR" value="HC" />
         <entry key="STM32F40x.svd|p:TIM1|DIER" value="HC" />
@@ -1252,27 +1249,27 @@
         <entry key="STM32F40x.svd|p:TIM1|RCR" value="HC" />
         <entry key="STM32F40x.svd|p:TIM1|SMCR" value="HC" />
         <entry key="STM32F40x.svd|p:TIM1|SR" value="HC" />
-        <entry key="STM32F40x.svd|p:TIM2" value="-E" />
+        <entry key="STM32F40x.svd|p:TIM2" value="-C" />
         <entry key="STM32F40x.svd|p:TIM2|ARR" value="HC" />
-        <entry key="STM32F40x.svd|p:TIM2|CCER" value="HE" />
+        <entry key="STM32F40x.svd|p:TIM2|CCER" value="HC" />
         <entry key="STM32F40x.svd|p:TIM2|CCMR1_Input" value="HC" />
-        <entry key="STM32F40x.svd|p:TIM2|CCMR1_Output" value="HE" />
+        <entry key="STM32F40x.svd|p:TIM2|CCMR1_Output" value="HC" />
         <entry key="STM32F40x.svd|p:TIM2|CCMR2_Input" value="HC" />
-        <entry key="STM32F40x.svd|p:TIM2|CCMR2_Output" value="HE" />
+        <entry key="STM32F40x.svd|p:TIM2|CCMR2_Output" value="HC" />
         <entry key="STM32F40x.svd|p:TIM2|CCR1" value="HC" />
         <entry key="STM32F40x.svd|p:TIM2|CCR2" value="HC" />
         <entry key="STM32F40x.svd|p:TIM2|CCR3" value="HC" />
         <entry key="STM32F40x.svd|p:TIM2|CCR4" value="HC" />
         <entry key="STM32F40x.svd|p:TIM2|CNT" value="HC" />
-        <entry key="STM32F40x.svd|p:TIM2|CR1" value="HE" />
-        <entry key="STM32F40x.svd|p:TIM2|CR2" value="HE" />
+        <entry key="STM32F40x.svd|p:TIM2|CR1" value="HC" />
+        <entry key="STM32F40x.svd|p:TIM2|CR2" value="HC" />
         <entry key="STM32F40x.svd|p:TIM2|DCR" value="HC" />
         <entry key="STM32F40x.svd|p:TIM2|DIER" value="HC" />
         <entry key="STM32F40x.svd|p:TIM2|DMAR" value="HC" />
         <entry key="STM32F40x.svd|p:TIM2|EGR" value="HC" />
         <entry key="STM32F40x.svd|p:TIM2|OR" value="HC" />
         <entry key="STM32F40x.svd|p:TIM2|PSC" value="HC" />
-        <entry key="STM32F40x.svd|p:TIM2|SMCR" value="HE" />
+        <entry key="STM32F40x.svd|p:TIM2|SMCR" value="HC" />
         <entry key="STM32F40x.svd|p:TIM2|SR" value="HC" />
         <entry key="STM32F40x.svd|p:TIM3" value="-C" />
         <entry key="STM32F40x.svd|p:TIM3|ARR" value="HC" />
@@ -1356,14 +1353,14 @@
         <entry key="STM32F40x.svd|p:TIM7|EGR" value="HC" />
         <entry key="STM32F40x.svd|p:TIM7|PSC" value="HC" />
         <entry key="STM32F40x.svd|p:TIM7|SR" value="HC" />
-        <entry key="STM32F40x.svd|p:TIM8" value="-E" />
+        <entry key="STM32F40x.svd|p:TIM8" value="-C" />
         <entry key="STM32F40x.svd|p:TIM8|ARR" value="HC" />
         <entry key="STM32F40x.svd|p:TIM8|BDTR" value="HC" />
         <entry key="STM32F40x.svd|p:TIM8|CCER" value="HC" />
         <entry key="STM32F40x.svd|p:TIM8|CCMR1_Input" value="HC" />
-        <entry key="STM32F40x.svd|p:TIM8|CCMR1_Output" value="HE" />
+        <entry key="STM32F40x.svd|p:TIM8|CCMR1_Output" value="HC" />
         <entry key="STM32F40x.svd|p:TIM8|CCMR2_Input" value="HC" />
-        <entry key="STM32F40x.svd|p:TIM8|CCMR2_Output" value="HE" />
+        <entry key="STM32F40x.svd|p:TIM8|CCMR2_Output" value="HC" />
         <entry key="STM32F40x.svd|p:TIM8|CCR1" value="HC" />
         <entry key="STM32F40x.svd|p:TIM8|CCR2" value="HC" />
         <entry key="STM32F40x.svd|p:TIM8|CCR3" value="HC" />
@@ -1740,7 +1737,7 @@
       <workItem from="1688439849681" duration="1262000" />
       <workItem from="1688521652341" duration="3416000" />
       <workItem from="1688543677844" duration="3130000" />
-      <workItem from="1688604759979" duration="9924000" />
+      <workItem from="1688604759979" duration="14649000" />
     </task>
     <servers />
   </component>
@@ -1824,11 +1821,6 @@
           <option name="timeStamp" value="62" />
         </line-breakpoint>
         <line-breakpoint type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/mc_interface.c</url>
-          <line>728</line>
-          <option name="timeStamp" value="66" />
-        </line-breakpoint>
-        <line-breakpoint type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/main.c</url>
           <line>237</line>
           <option name="timeStamp" value="68" />
@@ -1838,15 +1830,25 @@
           <line>210</line>
           <option name="timeStamp" value="69" />
         </line-breakpoint>
-        <line-breakpoint type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/mc_interface.c</url>
-          <line>717</line>
-          <option name="timeStamp" value="70" />
+          <line>1697</line>
+          <option name="timeStamp" value="74" />
         </line-breakpoint>
-        <line-breakpoint type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/mc_interface.c</url>
-          <line>1695</line>
-          <option name="timeStamp" value="71" />
+          <line>1648</line>
+          <option name="timeStamp" value="76" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/mc_interface.c</url>
+          <line>2774</line>
+          <option name="timeStamp" value="81" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/mc_interface.c</url>
+          <line>1855</line>
+          <option name="timeStamp" value="82" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -1866,16 +1868,13 @@
     </breakpoint-manager>
     <watches-manager>
       <configuration name="com.jetbrains.cidr.embedded.openocd.conf.type">
-        <watch expression="m_motor_1" />
-        <watch expression="motor_now-&gt;m_phase_now_encoder" />
-        <watch expression="motor_now-&gt;m_phase_now_observer" />
-        <watch expression="motor_now-&gt;m_speed_est_fast" />
-        <watch expression="motor_now-&gt;m_phase_override" />
-        <watch expression="m_init_done=1" language="ObjectiveC" />
-        <watch expression="m_init_done" />
+        <watch expression="m_motor_1" language="ObjectiveC" />
       </configuration>
       <inline-watch fileUrl="file://$PROJECT_DIR$/mcpwm_foc.c" line="198">
         <watch expression="m_init_done" />
+      </inline-watch>
+      <inline-watch fileUrl="file://$PROJECT_DIR$/mc_interface.c" line="2363">
+        <watch expression="motor-&gt;m_ignore_iterations" />
       </inline-watch>
     </watches-manager>
   </component>
