@@ -35,17 +35,17 @@
 #define FLASH_SECTORS							12
 #define BOOTLOADER_BASE							11
 #define APP_BASE								0
-#define NEW_APP_BASE							8
-#define NEW_APP_SECTORS							3
-#define APP_MAX_SIZE							(1024 * 128 * 3 - 8) // Note that the bootloader needs 8 extra bytes
-#define QMLUI_BASE								7
+#define NEW_APP_BASE							9
+#define NEW_APP_SECTORS							2
+#define APP_MAX_SIZE							(1024 * 128 * 4 - 8) // Note that the bootloader needs 8 extra bytes
+#define QMLUI_BASE								8
 #define QMLUI_MAX_SIZE							(1024 * 128 - 8)
 
 // Base address of the Flash sectors
 #define ADDR_FLASH_SECTOR_0    					((uint32_t)0x08000000) // Base @ of Sector 0, 16 Kbytes
 #define ADDR_FLASH_SECTOR_1    					((uint32_t)0x08004000) // Base @ of Sector 1, 16 Kbytes
 #define ADDR_FLASH_SECTOR_2    					((uint32_t)0x08008000) // Base @ of Sector 2, 16 Kbytes
-#define ADDR_FLASH_SECTOR_3						((uint32_t)0x0800C000) // Base @ of Sector 3, 16 Kbytes
+#define ADDR_FLASH_SECTOR_3						  ((uint32_t)0x0800C000) // Base @ of Sector 3, 16 Kbytes
 #define ADDR_FLASH_SECTOR_4    					((uint32_t)0x08010000) // Base @ of Sector 4, 64 Kbytes
 #define ADDR_FLASH_SECTOR_5    					((uint32_t)0x08020000) // Base @ of Sector 5, 128 Kbytes
 #define ADDR_FLASH_SECTOR_6     				((uint32_t)0x08040000) // Base @ of Sector 6, 128 Kbytes
@@ -56,11 +56,11 @@
 #define ADDR_FLASH_SECTOR_11				    ((uint32_t)0x080E0000) // Base @ of Sector 11, 128 Kbytes
 
 #define VECTOR_TABLE_ADDRESS					((uint32_t*)ADDR_FLASH_SECTOR_0)
-#define VECTOR_TABLE_SIZE						((uint32_t)(ADDR_FLASH_SECTOR_1 - ADDR_FLASH_SECTOR_0))
+#define VECTOR_TABLE_SIZE						  ((uint32_t)(ADDR_FLASH_SECTOR_1 - ADDR_FLASH_SECTOR_0))
 #define EEPROM_EMULATION_SIZE					((uint32_t)(ADDR_FLASH_SECTOR_4 - ADDR_FLASH_SECTOR_2))
 
 #define APP_START_ADDRESS						((uint32_t*)(ADDR_FLASH_SECTOR_3))
-#define APP_SIZE								((uint32_t)(APP_MAX_SIZE - VECTOR_TABLE_SIZE - EEPROM_EMULATION_SIZE))
+#define APP_SIZE								    ((uint32_t)(APP_MAX_SIZE - VECTOR_TABLE_SIZE - EEPROM_EMULATION_SIZE))
 
 #define	APP_CRC_WAS_CALCULATED_FLAG				((uint32_t)0x00000000)
 #define	APP_CRC_WAS_CALCULATED_FLAG_ADDRESS		((uint32_t*)(ADDR_FLASH_SECTOR_0 + APP_MAX_SIZE - 8))

@@ -740,7 +740,7 @@ static volatile motor_all_state_t *motor_now(void) {
 }
 
 bool mcpwm_foc_init_done(void) {
-	return m_init_done;
+	return  m_init_done;
 }
 
 void mcpwm_foc_set_configuration(volatile mc_configuration *configuration) {
@@ -2776,6 +2776,7 @@ void mcpwm_foc_adc_int_handler(void *p, uint32_t flags) {
 
 				// Compensate from the phase lag caused by the switching frequency. This is important for motors
 				// that run on high ERPM compared to the switching frequency.
+				// This is about How to compensate the Angle estimation error.
 				motor_now->m_phase_now_observer += motor_now->m_pll_speed * dt * (0.5 + conf_now->foc_observer_offset);
 				utils_norm_angle_rad((float*)&motor_now->m_phase_now_observer);
 			}
@@ -4140,6 +4141,18 @@ static void update_valpha_vbeta(volatile motor_all_state_t *motor, float mod_alp
 	}
 
 	float v_mag = sqrtf(SQ(v_alpha) + SQ(v_beta));
+	/*
+	基于磁链的估算方法，估算会用到静止坐标系或者旋转坐标系下的电压，这个电压的精度受到死区，
+	MOS开关延迟等非线性因素的影响，尤其低速下精度不足，给位置估算带来了较大困难。
+	
+	TI的fast观测器在客户端评价很好，其中低速为了能克服非线性因素的负面因素，
+	会通过ADC采样三相反电势，获取真实相电压，用于替代电流环输出的参考电压，提升低速的观测器精度。
+
+	电阻分压再加一级低通滤波，进入了ADC采样通道;
+	为什么要加低通滤波电路呢？
+	如果不加滤波电路，实际输出的端电压是PWM波，一般在下桥开通的时刻去采样，那么ADC采样到的端电压全部是0；
+	加入低通滤波器，明显不一样了,但是会引入相位滞后，这是低通滤波器造成的。并且低通滤波器是无法省略的。
+	*/
 	// The 0.1 * v_mag term below compensates for the filter attenuation as the speed increases.
 	// It is chosen by trial and error, so this can be improved.
 	UTILS_LP_FAST(state_m->v_mag_filter, v_mag + 0.1 * v_mag * filter_const, filter_const);
