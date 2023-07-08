@@ -43,10 +43,10 @@
 
 // Private types
 typedef struct {
-	float va;
+	float va;                   //va vb vc 外部采样电压
 	float vb;
 	float vc;
-	float v_mag_filter;
+	float v_mag_filter;        // (va vb vc) ->v_alpha、v_beta->v_mag->v_mag_filter
 	float mod_alpha_filter;
 	float mod_beta_filter;
 	float mod_alpha_measured;
@@ -3798,7 +3798,7 @@ static void control_current(volatile motor_all_state_t *motor, float dt) {
 	float s = state_m->phase_sin;
 	float c = state_m->phase_cos;
 
-	float abs_rpm = fabsf(RADPS2RPM_f(motor->m_speed_est_fast));
+	float abs_rpm = fabsf(RADPS2RPM_f(motor->m_speed_est_fast));//pll 输出的速度
 
 	bool do_hfi = (conf_now->foc_sensor_mode == FOC_SENSOR_MODE_HFI ||
 			(conf_now->foc_sensor_mode == FOC_SENSOR_MODE_HFI_START &&
@@ -3825,6 +3825,7 @@ static void control_current(volatile motor_all_state_t *motor, float dt) {
 	state_m->iq = c * state_m->i_beta  - s * state_m->i_alpha;
 
 	// Low passed currents are used for less time critical parts, not for the feedback
+	// The filtered values are used for decoupling and deadtime compensation
 	UTILS_LP_FAST(state_m->id_filter, state_m->id, conf_now->foc_current_filter_const);
 	UTILS_LP_FAST(state_m->iq_filter, state_m->iq, conf_now->foc_current_filter_const);
 
