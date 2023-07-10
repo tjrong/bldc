@@ -362,7 +362,8 @@ static void timer_reinit(int f_zv) {
 	TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Enable;
 	TIM_OCInitStructure.TIM_Pulse = TIM1->ARR / 2;
 	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;      //极性不变，OC1REF=1 输出为1
-	TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_High;
+    //TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_High;
+    TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_Low;    //FT6287T
 	TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Set;
 	TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCNIdleState_Set;
 
@@ -2670,7 +2671,7 @@ void mcpwm_foc_adc_int_handler(void *p, uint32_t flags) {
 			utils_truncate_number_abs(&iq_set_tmp, -conf_now->lo_current_min);//Maximum (braking) motor current
 		}
 
-		UTILS_LP_FAST(motor_now->m_duty_abs_filtered, duty_abs, 0.01);
+		UTILS_LP_FAST(motor_now->m_duty_abs_filtered, duty_abs, 0.01);  //motor_now->m_duty_abs_filtered used in run_fw
 		utils_truncate_number_abs((float*)&motor_now->m_duty_abs_filtered, 1.0);
 
 		UTILS_LP_FAST(motor_now->m_duty_filtered, duty_now, 0.01);
@@ -2916,7 +2917,7 @@ void mcpwm_foc_adc_int_handler(void *p, uint32_t flags) {
 
 		//mcconf->lo_current_max = mcconf->l_current_max * mcconf->l_current_max_scale
 		if (mod_q > 0.0) {
-			utils_truncate_number(&iq_set_tmp, conf_now->lo_current_min, conf_now->lo_current_min);
+			utils_truncate_number(&iq_set_tmp, conf_now->lo_current_min, conf_now->lo_current_max);
 		} else {
 			utils_truncate_number(&iq_set_tmp, -conf_now->lo_current_max, -conf_now->lo_current_min);
 		}
