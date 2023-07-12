@@ -31,8 +31,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="92a833fd-9836-4118-9861-15d042ca1e39" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hwconf/hw_60.h" beforeDir="false" afterPath="$PROJECT_DIR$/hwconf/hw_60.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mc_interface.c" beforeDir="false" afterPath="$PROJECT_DIR$/mc_interface.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -1844,11 +1845,6 @@
           <url>file://$PROJECT_DIR$/mc_interface.c</url>
           <line>2774</line>
           <option name="timeStamp" value="81" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/mc_interface.c</url>
-          <line>1855</line>
-          <option name="timeStamp" value="82" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>

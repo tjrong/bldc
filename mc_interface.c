@@ -1853,7 +1853,7 @@ void mc_interface_mc_timer_isr(bool is_second_motor) {
 #else
 	if (is_second_motor ? IS_DRV_FAULT_2() : IS_DRV_FAULT()) {
 #endif
-		mc_interface_fault_stop(FAULT_CODE_DRV, is_second_motor, true);
+//		mc_interface_fault_stop(FAULT_CODE_DRV, is_second_motor, true);
 	}
 
 #ifdef HW_USE_BRK
