@@ -361,9 +361,11 @@ static void timer_reinit(int f_zv) {
 	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
 	TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Enable;
 	TIM_OCInitStructure.TIM_Pulse = TIM1->ARR / 2;
-	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;      //极性不变，OC1REF=1 输出为1
-    //TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_High;
-    TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_Low;    //FT6287T
+//	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;      //极性不变，OC1REF=1 输出为1
+//  TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_High;
+
+  TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_Low;      //极性不变，OC1REF=1 输出为1
+  TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_High;    //FT6287T
 	TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Set;
 	TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCNIdleState_Set;
 
@@ -2427,7 +2429,7 @@ void mcpwm_foc_adc_int_handler(void *p, uint32_t flags) {
 
 	uint32_t t_start = timer_time_now();
 
-	bool is_v7 = !(TIM1->CR1 & TIM_CR1_DIR);//0 ,CR1->DIR=0 增计数
+	bool is_v7 = (TIM1->CR1 & TIM_CR1_DIR);//0 ,CR1->DIR=0 增计数  //由于pwm反向，所采样的v7变成了v0
 	int norm_curr_ofs = 0;
 
 #ifdef HW_HAS_DUAL_MOTORS
