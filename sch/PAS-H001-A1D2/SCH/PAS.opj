@@ -1,0 +1,91 @@
+(ExpressProject ""
+  (ProjectVersion "19981106")
+  (SoftwareVersion "17.4-2019 S035 (4083846)  [1/14/2023]-[07/13/23]")
+  (ProjectType "PCB")
+  (Folder "Design Resources"
+    (Folder "Library")
+    ("Allegro Netlist Directory" "allegro")
+    (File ".\pas.dsn"
+      (Type "Schematic Design"))
+    (BuildFileAddedOrDeleted "x")
+    (CompileFileAddedOrDeleted "x")
+    (DOCKED "TRUE")
+    (DOCKING_POSITION "59420")
+    (NoModify)
+    (Netlist_TAB "7")
+    (OTHER_Part_Value "{Value}")
+    (OTHER_Netlist_File "PAS.asc")
+    (OTHER_Netlist_File2 "PAS.CMP")
+    (OTHER_View_Output "FALSE")
+    (OTHER_View_Output2 "FALSE")
+    (OTHER_Formatter "orpads2k64.dll")
+    (OTHER_PCB_Footprint "{PCB Footprint}")
+    (OTHER_Switch0 "FALSE")
+    (OTHER_Switch1 "FALSE")
+    (OTHER_Switch2 "FALSE")
+    (OTHER_Switch3 "FALSE")
+    (OTHER_Switch4 "FALSE")
+    (OTHER_Switch5 "FALSE")
+    (OTHER_Switch6 "FALSE"))
+  (Folder "Layout")
+  (Folder "Outputs"
+    (File ".\pas.asc"
+      (Type "Report")))
+  (Folder "Referenced Projects")
+  (Folder "PSpice Resources"
+    (Folder "Simulation Profiles")
+    (Folder "Model Libraries"
+      (Sort User))
+    (Folder "Stimulus Files"
+      (Sort User))
+    (Folder "Include Files"
+      (Sort User)))
+  (Folder "Logs")
+  (PartMRUSelector)
+  (MPSSessionName "tangjinrong")
+  (GlobalState
+    (FileView
+      (Path "Design Resources")
+      (Path "Design Resources" ".\pas.dsn")
+      (Path "Design Resources" ".\pas.dsn" "SCHEMATIC1")
+      (Path "Outputs")
+      (Select "Design Resources" ".\pas.dsn" "SCHEMATIC1" "PAGE4"))
+    (HierarchyView
+      (Path "SCHEMATIC1")
+      (Select "SCHEMATIC1" "J1 (CON4)"))
+    (Doc
+      (Type "COrCapturePMDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -1 -1 0 200 0 654"))
+      (Tab 1))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -1 -1 5 1480 28 700")
+        (Scroll "0 483")
+        (Zoom "174")
+        (Occurrence "/"))
+      (Path "H:\OPENSOURCELIB\VESC_FOC\BLDC\SCH\PAS-H001-A1D2\SCH\PAS.DSN")
+      (Schematic "SCHEMATIC1")
+      (Page "PAGE4"))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -1 -1 5 1480 28 700")
+        (Scroll "-236 0")
+        (Zoom "100")
+        (Occurrence "/"))
+      (Path "H:\OPENSOURCELIB\VESC_FOC\BLDC\SCH\PAS-H001-A1D2\SCH\PAS.DSN")
+      (Schematic "SCHEMATIC1")
+      (Page "PAGE3"))
+    (Doc
+      (Type "COrSchematicDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -1 -1 5 1480 28 700")
+        (Scroll "-236 80")
+        (Zoom "100")
+        (Occurrence "/"))
+      (Path "H:\OPENSOURCELIB\VESC_FOC\BLDC\SCH\PAS-H001-A1D2\SCH\PAS.DSN")
+      (Schematic "SCHEMATIC1")
+      (Page "PAGE1")))
+  (ISPCBBASICLICENSE "false"))
